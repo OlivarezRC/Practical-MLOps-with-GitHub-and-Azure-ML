@@ -22,10 +22,10 @@ from azure.ai.ml.sweep import (
 )
 
 # NOTE:  set your workspace name here!
-workspace_name="CSAzureML"
-# NOTE:  if you do not have a cpu-cluster already, we will create one
+workspace_name="fmazureml"
+# NOTE:  if you do not have a Standard-NC16as-T4-v3 already, we will create one
 # Alternatively, change the name to a CPU-based compute cluster
-cluster_name="cpu-cluster"
+cluster_name="Standard-NC16as-T4-v3"
 
 # NOTE:  for local runs, I'm using the Azure CLI credential
 # For production runs as part of an MLOps configuration using
@@ -101,7 +101,7 @@ def build_pipeline(raw_data):
 
 def prepare_pipeline_job(cluster_name):
     # must have a dataset already in place
-    cpt_asset=ml_client.data.get(name="ChicagoParkingTicketsFolder", version="1")
+    cpt_asset=ml_client.data.get(name="ChicagoParkingTickets", version="1")
     raw_data=Input(type='uri_folder', path=cpt_asset.path)
     pipeline_job=build_pipeline(raw_data)
     # set pipeline level compute
@@ -114,4 +114,5 @@ def prepare_pipeline_job(cluster_name):
 
 prepped_job=prepare_pipeline_job(cluster_name)
 ml_client.jobs.create_or_update(prepped_job, experiment_name="Chicago Parking Tickets Code-First")
+
 print("Now look in the Azure ML Jobs UI to see the status of the pipeline job.  This will be in the 'Chicago Parking Tickets Code-First' experiment.")
