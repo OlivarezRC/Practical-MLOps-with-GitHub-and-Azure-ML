@@ -3,7 +3,6 @@
 permissions:
   contents: read
   pages: write
-  id-token: write
 
 name: PROD - Score Model
 

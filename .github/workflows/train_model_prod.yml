@@ -1,9 +1,6 @@
-# Permissions necessary to use the Azure/login action.
-# Even if you grant read/write at the repo level, you still need id-token.
 permissions:
   contents: read
   pages: write
-  id-token: write
 
 name: PROD - Train Model
 
