@@ -1,5 +1,3 @@
-# Permissions necessary to use the Azure/login action.
-# Even if you grant read/write at the repo level, you still need id-token.
 permissions:
   contents: read
   pages: write
@@ -32,12 +30,12 @@ jobs:
         az extension add -n ml -y
         echo "Installed Azure CLI and ML extension"
     - name: Azure login
-      uses: azure/login@v1
+      uses: azure/login@v2
       with:
         client-id: ${{ secrets.AZURE_CLIENT_ID }}
+        client-secret: ${{ secrets.AZURE_CLIENT_SECRET }}
         tenant-id: ${{ secrets.AZURE_TENANT_ID }}
         subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-        client-secret: ${{ secrets.AZURE_CLIENT_SECRET }}
         enable-AzPSSession: true
     - name: Install and prepare Python
       uses: actions/setup-python@v4
